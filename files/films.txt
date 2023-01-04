@@ -1,0 +1,150 @@
+The Shawshank Redemption
+1994
+USA
+drama
+9.1
+The Green Mile
+1999
+USA
+fantasy, drama
+9.1
+Forrest Gump
+1994
+USA
+drama, romance
+8.9
+Schindler's List
+1993
+USA
+historical drama
+8.8
+The Intouchables
+2011
+France
+comedy, drama
+8.8
+Inception
+2010
+USA, UK
+action, sci-fi
+8.7
+Leon
+1994
+France, USA
+action, drama
+8.7
+The Lion King
+1994
+USA
+musical, family
+8.8
+Fight Club
+1999
+USA
+thriller, drama
+8.6
+Ivan Vasilievich: Back to the Future
+1973
+USSR
+comedy, sci-fi
+8.8
+Life Is Beautiful
+1997
+Italy
+war, drama
+8.6
+Knockin' on Heaven's Door
+1997
+Germany
+drama, comedy
+8.6
+The Godfather
+1972
+USA
+crime, drama
+8.7
+Pulp Fiction
+1994
+USA
+crime, drama
+8.6
+Operation Y and Shurik's Other Adventures
+1965
+USSR
+comedy, romance
+8.7
+A Beautiful Mind
+2001
+USA
+drama,romance
+8.6
+The Prestige
+2006
+UK, USA
+fantasy, thriller
+8.5
+Interstellar
+2014
+USA, UK
+fantasy, drama
+8.6
+The Lord of the Rings: The Return of the King
+2003
+New Zealand, USA
+fantasy, adventure
+8.6
+Gladiator
+2000
+USA, UK
+action, adventure
+8.6
+Back to the Future
+1985
+USA
+sci-fi, comedy
+8.6
+Lock, Stock and Two Smoking Barrels
+1998
+UK
+crime, comedy
+8.5
+The Matrix
+1999
+USA
+sci-fi, action
+8.5
+The Diamond Arm
+1968
+USSR
+comedy, adventure
+8.5
+The Departed
+2006
+USA
+crime, drama
+8.5
+Catch Me If You Can
+2002
+USA, Canada
+drama, crime
+8.5
+The Pianist
+2002
+Poland, France
+drama, war
+8.5
+The Lord of the Rings: The Fellowship of the Ring
+2001
+New Zealand, USA
+fantasy, adventure
+8.6
+Only "Old Men" Are Going Into Battle
+1973
+USSR
+war, drama
+8.7
+WALL-E
+2008
+USA
+family, adventure
+8.3
