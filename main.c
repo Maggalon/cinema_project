@@ -252,6 +252,36 @@ void registration(char *login, char *password, char *card_number, User_list *hea
     }
 }
 
+FilmList *init(Film film) {
+    FilmList *lst = (FilmList*) malloc(sizeof(FilmList));
+    lst->film = film;
+    lst->next = lst;
+    lst->prev = lst;
+    return lst;
+}
+
+FilmList *addToFilmList(FilmList *lst, Film film) {
+    FilmList *tmp, *p;
+    tmp = (FilmList*) malloc(sizeof(FilmList));
+    p = lst->next;
+    lst->next = tmp;
+    tmp->film = film;
+    tmp->next = p;
+    tmp->prev = lst;
+    p->prev = tmp;
+    return tmp;
+}
+
+FilmList *deleteFromFilmList(FilmList *lst) {
+    FilmList *prev, *next;
+    prev = lst->prev;
+    next = lst->next;
+    prev->next = lst->next;
+    next->prev = lst->prev;
+    free(lst);
+    return prev;
+}
+
 int main() {
 
     User_list *head = NULL;
