@@ -332,6 +332,18 @@ int main() {
     }
 
 
+    while (1) {
+        printf("a/d to control\nD to see detailed info\nA to add film to your favorites\nF to see your favorites\nc to change user data\n");
+        if (user.is_admin) {
+            printf("@ to add new film to catalog\n& to delete film from catalog\n");
+        }
+        printf("f to finish work:");
+        scanf("\n%c", &option);
+        if (option == 'f') {
+            printf("Thanks for using our services.");
+            break;
+        }
+    }
 
     pushUsers(head);
     return 0;
