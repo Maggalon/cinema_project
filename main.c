@@ -62,6 +62,17 @@ void getFilePath(User user, char *url) {
     //return url;
 }
 
+int checkName(char *name1, char *name2) {
+    int i = 0;
+    while (name1[i] != '\0' && name2[i] != '\0') {
+        if (name1[i] != name2[i]) {
+            return 0;
+        }
+        i++;
+    }
+    return 1;
+}
+
 //---Работа со списком пользователей-------------
 void addUser(User_list **head, User user) {
     if (*head == NULL) {
