@@ -128,6 +128,83 @@ void pushUsers(User_list *head) {
 }
 //------------------------------------------------
 
+//---Работа со списком избранного-----------------
+void addFilm(Favorites **head, Film film) {
+    if (*head == NULL) {
+        *head = (Favorites *) malloc(sizeof(Favorites));
+        (*head)->film = film;
+        (*head)->next = NULL;
+    } else {
+        Favorites *cur = *head;
+        while (cur->next != NULL) {
+            cur = cur->next;
+        }
+        cur->next = (Favorites *) malloc(sizeof(Favorites));
+        cur->next->film = film;
+        cur->next->next = NULL;
+    }
+}
+
+void deleteFilm(Favorites **head, char *name) {
+    if (checkName((*head)->film.name, name)) {
+        Favorites *next = (*head)->next;
+        free(*head);
+        *head = next;
+        return;
+    }
+    Favorites *cur = *head;
+    while (!checkName(cur->next->film.name, name)) {
+        cur = cur->next;
+    }
+    Favorites *tmp = cur->next->next;
+    free(cur->next);
+    cur->next = tmp;
+}
+
+void getFavorites(Favorites **head, User user) {
+    Film film;
+    char url[54];
+    getFilePath(user, url);
+    //char s[50];
+    FILE *f = fopen(url, "r");
+    int i = 0;
+    while (i < user.favorites_list_size) {
+        fgets(film.name, 56, f);
+        fgets(film.year, 6, f);
+        fgets(film.country, 20, f);
+        fgets(film.genres, 50, f);
+        fgets(film.rating, 5, f);
+        addFilm(head, film);
+        i++;
+    }
+    fclose(f);
+    remove(url);
+}
+
+int isFilmInList(Favorites *head, char *name) {
+    Favorites *cur = head;
+    while (cur != NULL) {
+        if (checkName(cur->film.name, name)) {
+            return 1;
+        }
+        cur = cur->next;
+    }
+    return 0;
+}
+
+void pushFavorites(Favorites *head, User user) {
+    Favorites *cur = head;
+    char url[54];
+    getFilePath(user, url);
+    FILE *f = fopen(url, "w");
+    while (cur != NULL) {
+        fprintf(f, "%s%s%s%s%s", cur->film.name, cur->film.year, cur->film.country, cur->film.genres, cur->film.rating);
+        cur = cur->next;
+    }
+    fclose(f);
+}
+//------------------------------------------------
+
 int isValid(char *str, char type) {
     int i = 0;
     if (type == 'l') {
@@ -282,6 +359,29 @@ FilmList *deleteFromFilmList(FilmList *lst) {
     return prev;
 }
 
+void printCards(FilmList *cur){
+    printf("                                       ╔═════════════════════════════════════════════════════╗ \n");
+    printf("                                       ║                                                     ║ \n");
+    printf("                                       ║                                                     ║ \n");
+    printf("┌────────────────────────────────────┐ ║                                                     ║ ┌────────────────────────────────────┐  \n");
+    printf("│                                    │ ║                                                     ║ │                                    │ \n");
+    printf("│                                    │ ║                                                     ║ │                                    │ \n");
+    printf("│                                    │ ║                                                     ║ │                                    │ \n");
+    printf("│                                    │ ║                                                     ║ │                                    │ \n");
+    printf("│                                    │ ║                                                     ║ │                                    │ \n");
+    printf("│                                    │ ║                                                     ║ │                                    │ \n");
+    printf("│                                    │ ║                                                     ║ │                                    │\n");
+    printf("│                                    │ ║                                                     ║ │                                    │\n");
+    printf("│                                    │ ║                                                     ║ │                                    │\n");
+    printf("│                                    │ ║                                                     ║ │                                    │\n");
+    printf("│                                    │ ║                                                     ║ │                                    │\n");
+    printf("└────────────────────────────────────┘ ║                                                     ║ └────────────────────────────────────┘ \n");
+    printf("                                       ║                                                     ║ \n");
+    printf("                                       ║                                                     ║ \n");
+    printf("                                       ╚═════════════════════════════════════════════════════╝ \n");
+
+}
+
 int main() {
 
     User_list *head = NULL;
@@ -342,6 +442,108 @@ int main() {
         if (option == 'f') {
             printf("Thanks for using our services.");
             break;
+        } else if (option == 'c') {
+            while (1) {
+                system("cls");
+                printf("To exit profile settings type 'e'.\n");
+                printf("To change login/password/card number type 'l'/'p'/'c':\n");
+                scanf("\n%c", &option);
+                if (option == 'e') break;
+                if (option == 'l') {
+                    User_list *cur = head;
+                    while (cur != NULL) {
+                        int i = 0, ok = 1;
+                        while (cur->user.login[i] != '\0') {
+                            if (cur->user.login[i] != user.login[i]) {
+                                ok = 0;
+                                break;
+                            }
+                            i++;
+                        }
+                        if (ok) break;
+                        cur = cur->next;
+                    }
+                    while (1) {
+                        printf("New login (3-20 letters and digits):\n");
+                        scanf("%s", user.login);
+                        if (checkLogin(user.login, 'r', head)) continue;
+
+                        if (!isValid(user.login, 'l')) {
+                            printf("Invalid login. Try again.\n");
+                            continue;
+                        }
+                        break;
+                    }
+                    int i = 0;
+                    while (user.login[i] != '\0') {
+                        cur->user.login[i] = user.login[i];
+                        i++;
+                    }
+                    cur->user.login[i] = '\0';
+                }
+                else if (option == 'p') {
+                    User_list *cur = head;
+                    while (cur != NULL) {
+                        int i = 0, ok = 1;
+                        while (cur->user.login[i] != '\0') {
+                            if (cur->user.login[i] != user.login[i]) {
+                                ok = 0;
+                                break;
+                            }
+                            i++;
+                        }
+                        if (ok) break;
+                        cur = cur->next;
+                    }
+                    while (1) {
+                        printf("New password (6-20 letters and digits, 1 upper/lowercase letter and digit are required):\n");
+                        scanf("%s", user.password);
+                        if (checkLogin(user.password, 'r', head)) continue;
+
+                        if (!isValid(user.password, 'p')) {
+                            printf("Invalid password. Try again.\n");
+                            continue;
+                        }
+                        break;
+                    }
+                    int i = 0;
+                    while (user.password[i] != '\0') {
+                        cur->user.password[i] = user.password[i];
+                        i++;
+                    }
+                    cur->user.password[i] = '\0';
+                }
+                else if (option == 'c') {
+                    User_list *cur = head;
+                    while (cur != NULL) {
+                        int i = 0, ok = 1;
+                        while (cur->user.login[i] != '\0') {
+                            if (cur->user.login[i] != user.login[i]) {
+                                ok = 0;
+                                break;
+                            }
+                            i++;
+                        }
+                        if (ok) break;
+                        cur = cur->next;
+                    }
+                    while (1) {
+                        printf("New card number (16 digits):\n");
+                        scanf("%s", user.card_number);
+                        if (!isValid(user.card_number, 'c')) {
+                            printf("Invalid card number. Try again.\n");
+                            continue;
+                        }
+                        break;
+                    }
+                    int i = 0;
+                    while (i < 16) {
+                        cur->user.card_number[i] = user.card_number[i];
+                        i++;
+                    }
+                }
+                else printf("Nothing to do with this input.");
+            }
         }
     }
 
